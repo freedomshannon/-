@@ -94,7 +94,7 @@ const galleryData = generatePhotoData(236);
 // 纪念日数据
 const anniversaryData = [
     {
-        date: '2024-04-12',
+        date: '2024-04-10',
         title: '恋爱纪念日',
         description: '我们在一起啦'
     },
