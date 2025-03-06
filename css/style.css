@@ -1,34 +1,41 @@
 /* 基础样式 - 苹果风格 */
 body {
     font-family: 'SF Pro Display', 'SF Pro Text', 'Microsoft YaHei', sans-serif;
-    color: #1d1d1f;
+    color: var(--text-color);
     line-height: 1.6;
-    background-color: #fbfbfd;
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 section {
     padding: 100px 0;
+    position: relative;
+    z-index: 1;
 }
 
 .navbar {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--navbar-bg) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar-brand {
     font-weight: 600;
+    color: var(--text-color);
 }
 
 .nav-link {
     font-weight: 500;
-    color: #1d1d1f;
+    color: var(--text-color);
 }
 
 /* 首页英雄区域 - 苹果风格 */
 .hero-section {
-    background-color: #fbfbfd;
+    background-color: var(--bg-color);
     padding: 150px 0 100px;
 }
 
@@ -36,7 +43,7 @@ section {
     font-weight: 700;
     font-size: 48px;
     margin-bottom: 30px;
-    color: #1d1d1f;
+    color: var(--text-color);
 }
 
 /* 放大在一起的天数/倒计时 */
@@ -47,7 +54,7 @@ section {
 
 #days-together {
     font-weight: 700;
-    color: #06c;
+    color: var(--accent-color);
     font-size: 96px;
     display: block;
     line-height: 1;
@@ -55,32 +62,33 @@ section {
 
 .days-label {
     font-size: 24px;
-    color: #86868b;
+    color: var(--secondary-text);
     margin-top: 10px;
 }
 
 .hero-image img {
     max-width: 300px;
     border-radius: 50%;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    border: 5px solid #fff;
+    box-shadow: 0 20px 40px var(--shadow-color);
+    border: 5px solid var(--card-bg);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
 .hero-image img:hover {
     transform: translateY(-10px);
-    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 30px 50px var(--shadow-hover);
 }
 
 /* 相册样式 - 简化版 */
 .gallery-section {
-    background-color: #fff;
+    background-color: var(--overlay-bg) !important;
 }
 
 .gallery-section h2 {
     font-weight: 700;
     font-size: 40px;
     margin-bottom: 40px;
+    color: var(--text-color);
 }
 
 .gallery-filter .btn {
@@ -89,14 +97,14 @@ section {
     font-weight: 500;
     padding: 8px 20px;
     border: none;
-    background-color: #f5f5f7;
-    color: #1d1d1f;
+    background-color: var(--card-bg);
+    color: var(--text-color);
     transition: all 0.3s ease;
 }
 
 .gallery-filter .btn.active,
 .gallery-filter .btn:hover {
-    background-color: #06c;
+    background-color: var(--accent-color);
     color: #fff;
 }
 
@@ -104,19 +112,21 @@ section {
     margin-bottom: 30px;
     overflow: hidden;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px var(--shadow-color);
     transition: all 0.4s ease;
+    background-color: var(--card-bg) !important;
 }
 
 .gallery-item:hover {
     transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 15px 30px var(--shadow-hover);
 }
 
 .gallery-item-inner {
     position: relative;
     overflow: hidden;
     border-radius: 12px;
+    background-color: var(--card-bg) !important;
 }
 
 .gallery-item img {
@@ -133,7 +143,7 @@ section {
 
 .gallery-caption {
     padding: 20px;
-    background-color: white;
+    background-color: var(--card-bg) !important;
 }
 
 .gallery-caption h5 {
@@ -143,39 +153,40 @@ section {
 
 /* 纪念日样式 - 苹果风格 */
 .anniversary-section {
-    background-color: #f5f5f7;
+    background-color: var(--overlay-bg) !important;
 }
 
 .anniversary-section h2 {
     font-weight: 700;
     font-size: 40px;
     margin-bottom: 40px;
+    color: var(--text-color);
 }
 
 .anniversary-card {
-    background-color: white;
+    background-color: var(--card-bg) !important;
     border-radius: 16px;
     padding: 30px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px var(--shadow-color);
     height: 100%;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .anniversary-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 15px 30px var(--shadow-hover);
 }
 
 .anniversary-card h3 {
     font-weight: 600;
     margin-bottom: 20px;
-    color: #1d1d1f;
+    color: var(--text-color);
 }
 
 .anniversary-item {
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #f5f5f7;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .anniversary-item h5 {
@@ -185,14 +196,14 @@ section {
 
 .anniversary-date {
     font-weight: 500;
-    color: #06c;
+    color: var(--accent-color);
     margin: 8px 0;
 }
 
 .countdown {
     font-weight: 600;
-    color: #06c;
-    background-color: rgba(0, 102, 204, 0.1);
+    color: var(--accent-color);
+    background-color: var(--accent-light);
     padding: 5px 12px;
     border-radius: 15px;
     display: inline-block;
@@ -201,60 +212,66 @@ section {
 
 /* 留言板样式 - 苹果风格 */
 .message-section {
-    background-color: #fff;
+    background-color: var(--overlay-bg) !important;
 }
 
 .message-section h2 {
     font-weight: 700;
     font-size: 40px;
     margin-bottom: 40px;
+    color: var(--text-color);
 }
 
 #message-form {
-    background-color: #f5f5f7;
+    background-color: var(--form-bg);
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 .form-label {
     font-weight: 500;
-    color: #1d1d1f;
+    color: var(--text-color);
 }
 
 .form-control {
     border: none;
     border-radius: 10px;
     padding: 12px 15px;
-    background-color: #fff;
+    background-color: var(--input-bg);
+    color: var(--text-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .form-control:focus {
-    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+    box-shadow: 0 0 0 3px var(--accent-light);
+    border-color: var(--accent-color);
 }
 
 .btn-primary {
-    background-color: #06c;
+    background-color: var(--accent-color) !important;
     border: none;
     border-radius: 20px;
     padding: 10px 25px;
     font-weight: 500;
     transition: all 0.3s ease;
+    color: white !important;
 }
 
 .btn-primary:hover {
-    background-color: #0055b3;
+    background-color: var(--accent-color);
+    opacity: 0.9;
     transform: translateY(-2px);
 }
 
 .message-item {
-    background-color: #f5f5f7;
+    background-color: var(--form-bg);
     padding: 25px;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px var(--shadow-color);
     margin-bottom: 25px;
     transition: transform 0.3s ease;
+    background-color: var(--card-bg) !important;
 }
 
 .message-item:hover {
@@ -269,23 +286,23 @@ section {
 
 .message-name {
     font-weight: 600;
-    color: #1d1d1f;
+    color: var(--text-color);
 }
 
 .message-date {
-    color: #86868b;
+    color: var(--secondary-text);
     font-size: 0.9em;
 }
 
 .message-content p {
-    color: #1d1d1f;
+    color: var(--text-color);
 }
 
 /* 页脚样式 - 苹果风格 */
 footer {
-    background-color: #f5f5f7;
+    background-color: var(--section-bg) !important;
     padding: 30px 0;
-    color: #86868b;
+    color: var(--secondary-text);
 }
 
 /* 响应式调整 */
@@ -307,4 +324,495 @@ footer {
     .message-section h2 {
         font-size: 32px;
     }
+}
+
+/* 随机背景与高斯模糊 */
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    opacity: 0.15;
+    z-index: -1;
+    transform: scale(1.1); /* 避免模糊边缘 */
+}
+
+/* 调整主体内容样式以适应背景 */
+.hero-section, 
+.gallery-section, 
+.anniversary-section, 
+.message-section {
+    background-color: var(--overlay-bg) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* 调整卡片和容器的透明度 */
+.anniversary-card, 
+#message-form, 
+.message-item {
+    background-color: var(--card-bg) !important;
+}
+
+/* 黑夜模式样式 */
+:root {
+    --bg-color: #fbfbfd;
+    --text-color: #1d1d1f;
+    --secondary-text: #86868b;
+    --card-bg: #ffffff;
+    --section-bg: #f5f5f7;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --shadow-hover: rgba(0, 0, 0, 0.12);
+    --accent-color: #06c;
+    --accent-light: rgba(0, 102, 204, 0.1);
+    --border-color: #f5f5f7;
+    --navbar-bg: rgba(255, 255, 255, 0.8);
+    --form-bg: #f5f5f7;
+    --input-bg: #ffffff;
+    --overlay-bg: rgba(255, 255, 255, 0.85);
+    --navbar-icon-filter: none;
+}
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #f5f5f7;
+    --secondary-text: #a1a1a6;
+    --card-bg: #2c2c2e;
+    --section-bg: #1c1c1e;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --shadow-hover: rgba(0, 0, 0, 0.3);
+    --accent-color: #0a84ff;
+    --accent-light: rgba(10, 132, 255, 0.15);
+    --border-color: #38383a;
+    --navbar-bg: rgba(30, 30, 30, 0.8);
+    --form-bg: #2c2c2e;
+    --input-bg: #38383a;
+    --overlay-bg: rgba(30, 30, 30, 0.85);
+    --navbar-icon-filter: invert(1);
+}
+
+body {
+    font-family: 'SF Pro Display', 'SF Pro Text', 'Microsoft YaHei', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* 黑夜模式切换按钮 */
+#theme-toggle {
+    position: relative;
+    z-index: 1100;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent-light);
+    border: none;
+    cursor: pointer;
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+    margin-right: 15px;
+}
+
+#theme-toggle:hover {
+    transform: rotate(30deg);
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.dark-icon, .light-icon {
+    font-size: 1.2rem;
+}
+
+body:not(.dark-mode) .dark-icon {
+    display: inline-block;
+}
+
+body:not(.dark-mode) .light-icon {
+    display: none;
+}
+
+body.dark-mode .dark-icon {
+    display: none;
+}
+
+body.dark-mode .light-icon {
+    display: inline-block;
+}
+
+/* 更新其他样式以使用变量 */
+.hero-section {
+    background-color: var(--bg-color);
+    padding: 150px 0 100px;
+}
+
+.hero-section h1 {
+    color: var(--text-color);
+}
+
+#days-together {
+    color: var(--accent-color);
+}
+
+.days-label {
+    color: var(--secondary-text);
+}
+
+.hero-image img {
+    box-shadow: 0 20px 40px var(--shadow-color);
+    border: 5px solid var(--card-bg);
+}
+
+.gallery-section, .message-section {
+    background-color: var(--overlay-bg);
+}
+
+.anniversary-section {
+    background-color: var(--overlay-bg);
+}
+
+.gallery-section h2, .anniversary-section h2, .message-section h2 {
+    color: var(--text-color);
+}
+
+.gallery-item {
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.gallery-item:hover {
+    box-shadow: 0 15px 30px var(--shadow-hover);
+}
+
+.anniversary-card {
+    background-color: var(--card-bg);
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.anniversary-card:hover {
+    box-shadow: 0 15px 30px var(--shadow-hover);
+}
+
+.anniversary-card h3 {
+    color: var(--text-color);
+}
+
+.anniversary-item {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.anniversary-date {
+    color: var(--accent-color);
+}
+
+.countdown {
+    color: var(--accent-color);
+    background-color: var(--accent-light);
+}
+
+#message-form {
+    background-color: var(--form-bg);
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.form-label {
+    color: var(--text-color);
+}
+
+.form-control {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+.message-item {
+    background-color: var(--form-bg);
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.message-name {
+    color: var(--text-color);
+}
+
+.message-date {
+    color: var(--secondary-text);
+}
+
+.message-content p {
+    color: var(--text-color);
+}
+
+footer {
+    background-color: var(--section-bg) !important;
+    color: var(--secondary-text);
+}
+
+/* 调整主体内容样式以适应背景 */
+.hero-section, 
+.gallery-section, 
+.anniversary-section, 
+.message-section {
+    background-color: var(--overlay-bg);
+}
+
+/* 调整卡片和容器的透明度 */
+.anniversary-card, 
+#message-form, 
+.message-item {
+    background-color: var(--card-bg);
+}
+
+/* 修复导航栏在黑夜模式下的样式 */
+.navbar-toggler {
+    background-color: var(--card-bg);
+}
+
+.navbar-toggler-icon {
+    filter: var(--navbar-icon-filter);
+}
+
+/* 确保链接在黑夜模式下也能正确显示 */
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+/* 修复纪念日描述文字颜色 */
+.anniversary-item p, 
+.next-anniversary-item p {
+    color: var(--text-color);
+}
+
+/* 修复导航标签页文字颜色 */
+.nav-item .nav-link {
+    color: var(--text-color);
+}
+
+.nav-item .nav-link.active {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* 修复纪念日标题颜色 */
+.anniversary-item h5,
+.next-anniversary-item h4 {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* 确保所有文本元素使用变量颜色 */
+h1, h2, h3, h4, h5, h6, p, span, div {
+    color: var(--text-color);
+}
+
+/* 特定元素的颜色覆盖 */
+.days-label {
+    color: var(--secondary-text);
+}
+
+.message-date {
+    color: var(--secondary-text);
+}
+
+footer p {
+    color: var(--secondary-text);
+}
+
+#days-together {
+    color: var(--accent-color);
+}
+
+.anniversary-date {
+    color: var(--accent-color);
+}
+
+.countdown {
+    color: var(--accent-color);
+}
+
+/* 修复导航栏中的"首页"文字颜色 */
+.navbar-nav .nav-item .nav-link.active {
+    color: var(--accent-color) !important;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: var(--text-color) !important;
+}
+
+/* 修复页脚背景颜色 */
+footer.bg-light {
+    background-color: var(--section-bg) !important;
+}
+
+footer p {
+    color: var(--secondary-text) !important;
+}
+
+/* 确保所有Bootstrap类也使用我们的变量 */
+.bg-light {
+    background-color: var(--section-bg) !important;
+}
+
+.text-center {
+    color: var(--text-color);
+}
+
+/* 强制覆盖Bootstrap的默认样式 */
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--text-color);
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--accent-color);
+}
+
+/* 确保页脚在黑夜模式下正确显示 */
+.py-4 {
+    background-color: var(--section-bg) !important;
+}
+
+.mt-5 {
+    margin-top: 3rem !important;
+}
+
+/* 确保所有区域在黑夜模式下使用正确的背景色 */
+body, section, div, .container, .row, .col-md-6, .col-md-3, .col-sm-6 {
+    background-color: transparent;
+}
+
+/* 修复特定区域的背景色 */
+.navbar {
+    background-color: var(--navbar-bg) !important;
+}
+
+.hero-section, 
+.gallery-section, 
+.anniversary-section, 
+.message-section {
+    background-color: var(--overlay-bg) !important;
+}
+
+/* 确保卡片和容器使用正确的背景色 */
+.anniversary-card, 
+#message-form, 
+.message-item,
+.gallery-item,
+.gallery-item-inner {
+    background-color: var(--card-bg) !important;
+}
+
+/* 修复页脚背景 */
+footer {
+    background-color: var(--section-bg) !important;
+}
+
+/* 修复Bootstrap容器背景 */
+.container, .container-fluid {
+    background-color: transparent !important;
+}
+
+/* 修复可能的白色背景元素 */
+.gallery-caption {
+    background-color: var(--card-bg) !important;
+}
+
+/* 确保所有Bootstrap组件使用我们的变量 */
+.bg-white {
+    background-color: var(--card-bg) !important;
+}
+
+/* 修复输入框和按钮背景 */
+input, textarea, select, button {
+    background-color: var(--input-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--accent-color) !important;
+    color: white !important;
+}
+
+/* 确保所有区域的过渡效果平滑 */
+body, section, div, .container, .row, .col-md-6, .col-md-3, .col-sm-6,
+.navbar, .anniversary-card, #message-form, .message-item, .gallery-item,
+footer, input, textarea, select, button {
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 修复留言板和页脚之间的白色区域 */
+.messages-container {
+    background-color: transparent !important;
+    margin-bottom: 0 !important;
+}
+
+/* 确保留言板区域完全覆盖到页脚 */
+.message-section {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* 移除页脚上方的空白 */
+footer.mt-5 {
+    margin-top: 0 !important;
+}
+
+/* 确保所有区域背景色正确 */
+body {
+    background-color: var(--bg-color) !important;
+}
+
+/* 修复可能的容器间隙 */
+.container, .container-fluid, .row, [class*="col-"] {
+    background-color: transparent !important;
+}
+
+/* 确保留言板下方区域背景色正确 */
+.message-section:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -50px; /* 延伸到页脚 */
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: var(--overlay-bg);
+    z-index: -1;
+}
+
+/* 调整页脚与留言板的连接 */
+footer {
+    position: relative;
+    z-index: 2;
+    margin-top: 0 !important;
+    padding-top: 50px !important;
 } 

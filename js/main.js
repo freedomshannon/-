@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('days-label').textContent = '距离在一起还有天数';
     }
     
+    // 初始化主题模式
+    initThemeMode();
+    
+    // 设置随机背景
+    setRandomBackground();
+    
     // 加载相册数据
     loadGalleryData();
     
@@ -40,7 +46,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 设置相册筛选和分页功能
     setupGalleryFilter();
+    
+    // 设置主题切换按钮
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 });
+
+// 初始化主题模式
+function initThemeMode() {
+    // 检查本地存储中是否有保存的主题偏好
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme) {
+        // 如果有保存的偏好，使用它
+        document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+    } else {
+        // 否则，根据当前时间自动设置
+        const currentHour = new Date().getHours();
+        // 晚上8点到早上6点使用黑夜模式
+        const isDarkTime = currentHour >= 20 || currentHour < 6;
+        document.body.classList.toggle('dark-mode', isDarkTime);
+        
+        // 保存到本地存储
+        localStorage.setItem('theme', isDarkTime ? 'dark' : 'light');
+    }
+}
+
+// 切换主题
+function toggleTheme() {
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+}
 
 // 自动生成大量照片数据
 function generatePhotoData(count) {
@@ -84,26 +119,21 @@ const anniversaryData = [
 let currentPage = 1;
 const itemsPerPage = 12; // 每页显示24张照片
 
-// 加载相册数据 - 优化版本
+// 修改加载相册数据函数，实现随机展示
 function loadGalleryData() {
     const galleryContainer = document.querySelector('.gallery-container');
     galleryContainer.innerHTML = '';
     
-    // 计算分页
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, galleryData.length);
-    
-    // 更新当前页码显示
-    document.getElementById('current-page').textContent = currentPage;
-    
     // 创建文档片段，提高性能
     const fragment = document.createDocumentFragment();
     
-    // 显示当前页的照片
-    for (let i = startIndex; i < endIndex; i++) {
-        const item = galleryData[i];
+    // 随机选择12张照片
+    const randomPhotos = getRandomPhotos(galleryData, itemsPerPage);
+    
+    // 显示随机选择的照片
+    randomPhotos.forEach(item => {
         const galleryItem = document.createElement('div');
-        galleryItem.className = 'col-md-3 col-sm-6 gallery-item'; // 改为每行4张
+        galleryItem.className = 'col-md-3 col-sm-6 gallery-item'; // 每行4张
         
         // 简化的照片显示，只显示照片
         galleryItem.innerHTML = `
@@ -113,56 +143,34 @@ function loadGalleryData() {
         `;
         
         fragment.appendChild(galleryItem);
-    }
+    });
     
     // 一次性添加所有元素，减少DOM操作
     galleryContainer.appendChild(fragment);
-    
-    // 更新分页按钮状态
-    document.getElementById('prev-page').disabled = currentPage === 1;
-    document.getElementById('next-page').disabled = endIndex >= galleryData.length;
 }
 
-// 设置分页功能
+// 获取随机照片的函数
+function getRandomPhotos(photoArray, count) {
+    // 创建原数组的副本
+    const shuffled = [...photoArray];
+    
+    // 随机打乱数组
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
+    // 返回前count个元素
+    return shuffled.slice(0, count);
+}
+
+// 修改设置相册功能，移除分页相关代码
 function setupGalleryFilter() {
-    // 添加分页按钮事件监听
-    document.getElementById('prev-page').addEventListener('click', function() {
-        if (currentPage > 1) {
-            currentPage--;
-            loadGalleryData();
-            window.scrollTo({top: document.getElementById('gallery').offsetTop, behavior: 'smooth'});
-        }
+    // 添加刷新按钮事件监听
+    document.getElementById('refresh-gallery').addEventListener('click', function() {
+        loadGalleryData();
+        window.scrollTo({top: document.getElementById('gallery').offsetTop, behavior: 'smooth'});
     });
-    
-    document.getElementById('next-page').addEventListener('click', function() {
-        const totalPages = Math.ceil(galleryData.length / itemsPerPage);
-        
-        if (currentPage < totalPages) {
-            currentPage++;
-            loadGalleryData();
-            window.scrollTo({top: document.getElementById('gallery').offsetTop, behavior: 'smooth'});
-        }
-    });
-    
-    // 添加页面跳转功能
-    document.getElementById('goto-page').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const pageInput = document.getElementById('page-number');
-        const pageNumber = parseInt(pageInput.value);
-        const totalPages = Math.ceil(galleryData.length / itemsPerPage);
-        
-        if (pageNumber >= 1 && pageNumber <= totalPages) {
-            currentPage = pageNumber;
-            loadGalleryData();
-            window.scrollTo({top: document.getElementById('gallery').offsetTop, behavior: 'smooth'});
-        } else {
-            alert(`请输入1到${totalPages}之间的页码`);
-        }
-    });
-    
-    // 更新总页数显示
-    const totalPages = Math.ceil(galleryData.length / itemsPerPage);
-    document.getElementById('total-pages').textContent = totalPages;
 }
 
 // 加载纪念日数据
@@ -305,4 +313,19 @@ function submitMessage() {
     messageInput.value = '';
     
     alert('留言成功！');
+}
+
+// 设置随机背景
+function setRandomBackground() {
+    // 从照片数据中随机选择一张
+    const randomIndex = Math.floor(Math.random() * galleryData.length);
+    const randomImage = galleryData[randomIndex].image;
+    
+    // 创建背景元素
+    const backgroundElement = document.createElement('div');
+    backgroundElement.className = 'background-blur';
+    backgroundElement.style.backgroundImage = `url(${randomImage})`;
+    
+    // 添加到body的最前面
+    document.body.insertBefore(backgroundElement, document.body.firstChild);
 } 

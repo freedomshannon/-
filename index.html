@@ -7,15 +7,22 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand" href="#">饭团 & Shannon</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <div class="d-flex align-items-center">
+                    <button id="theme-toggle" class="btn btn-sm me-3">
+                        <span class="dark-icon">🌙</span>
+                        <span class="light-icon">☀️</span>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link active" href="#home">首页</a></li>
@@ -47,17 +54,10 @@
             <div class="row gallery-container">
                 <!-- 相册内容将通过JavaScript动态生成 -->
             </div>
-            <div class="gallery-pagination text-center mt-4" data-aos="fade-up">
-                <button id="prev-page" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i> 上一页</button>
-                <span class="mx-3">第 <span id="current-page">1</span> / <span id="total-pages">10</span> 页</span>
-                <button id="next-page" class="btn btn-outline-primary">下一页 <i class="fas fa-chevron-right"></i></button>
-                
-                <form id="goto-page" class="d-inline-block ms-3">
-                    <div class="input-group" style="width: 150px;">
-                        <input type="number" id="page-number" class="form-control" min="1" placeholder="页码">
-                        <button class="btn btn-primary" type="submit">跳转</button>
-                    </div>
-                </form>
+            <div class="text-center mt-4" data-aos="fade-up">
+                <button id="refresh-gallery" class="btn btn-primary">
+                    <i class="fas fa-random"></i> 换一批照片
+                </button>
             </div>
         </div>
     </section>
@@ -110,7 +110,7 @@
         </div>
     </section>
 
-    <footer class="bg-light py-4 mt-5">
+    <footer class="py-4">
         <div class="container text-center">
             <p>饭团 & Shannon 的爱情空间 &copy; <span id="current-year"></span></p>
         </div>
