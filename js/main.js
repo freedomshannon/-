@@ -243,41 +243,69 @@ function formatDate(date) {
 }
 
 // 加载留言板数据
-function loadMessages() {
+async function loadMessages() {
     const messagesContainer = document.querySelector('.messages-container');
-    messagesContainer.innerHTML = '';
+    messagesContainer.innerHTML = '<p class="text-center">加载中...</p>';
     
-    // 从本地存储获取留言
-    const messages = JSON.parse(localStorage.getItem('loveMessages')) || [];
-    
-    if (messages.length === 0) {
-        messagesContainer.innerHTML = '<p class="text-center">还没有留言，成为第一个留言的人吧！</p>';
-        return;
+    try {
+        // 从 Cloudflare Worker API 获取留言
+        const response = await fetch('https://love-message-board.guba396.workers.dev/api/messages');
+        
+        if (!response.ok) {
+            throw new Error('获取留言失败');
+        }
+        
+        const messages = await response.json();
+        
+        messagesContainer.innerHTML = '';
+        
+        if (messages.length === 0) {
+            messagesContainer.innerHTML = '<p class="text-center">还没有留言，成为第一个留言的人吧！</p>';
+            return;
+        }
+        
+        // 显示留言
+        messages.forEach((message, index) => {
+            const messageItem = document.createElement('div');
+            messageItem.className = 'message-item';
+            messageItem.setAttribute('data-aos', 'fade-up');
+            messageItem.setAttribute('data-aos-delay', index * 100);
+            
+            // 格式化日期
+            const messageDate = formatDisplayDate(message.date);
+            
+            messageItem.innerHTML = `
+                <div class="message-header">
+                    <span class="message-name">${message.name}</span>
+                    <span class="message-date">${messageDate}</span>
+                </div>
+                <div class="message-content">
+                    <p>${message.message}</p>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageItem);
+        });
+    } catch (error) {
+        console.error('加载留言失败:', error);
+        messagesContainer.innerHTML = '<p class="text-center text-danger">加载留言失败，请稍后再试</p>';
     }
+}
+
+// 格式化显示日期
+function formatDisplayDate(isoDate) {
+    const date = new Date(isoDate);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
     
-    // 显示留言
-    messages.forEach((message, index) => {
-        const messageItem = document.createElement('div');
-        messageItem.className = 'message-item';
-        messageItem.setAttribute('data-aos', 'fade-up');
-        messageItem.setAttribute('data-aos-delay', index * 100);
-        
-        messageItem.innerHTML = `
-            <div class="message-header">
-                <span class="message-name">${message.name}</span>
-                <span class="message-date">${message.date}</span>
-            </div>
-            <div class="message-content">
-                <p>${message.message}</p>
-            </div>
-        `;
-        
-        messagesContainer.appendChild(messageItem);
-    });
+    return `${year}年${month}月${day}日 ${hours}:${minutes}`;
 }
 
 // 提交留言
-function submitMessage() {
+async function submitMessage() {
     const nameInput = document.getElementById('name');
     const messageInput = document.getElementById('message');
     
@@ -289,30 +317,44 @@ function submitMessage() {
         return;
     }
     
-    // 创建新留言
-    const newMessage = {
-        name,
-        message,
-        date: formatDate(new Date())
-    };
+    // 禁用提交按钮，防止重复提交
+    const submitButton = document.querySelector('#message-form button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.innerHTML = '提交中...';
     
-    // 从本地存储获取现有留言
-    const messages = JSON.parse(localStorage.getItem('loveMessages')) || [];
-    
-    // 添加新留言
-    messages.unshift(newMessage);
-    
-    // 保存到本地存储
-    localStorage.setItem('loveMessages', JSON.stringify(messages));
-    
-    // 重新加载留言
-    loadMessages();
-    
-    // 清空表单
-    nameInput.value = '';
-    messageInput.value = '';
-    
-    alert('留言成功！');
+    try {
+        // 发送留言到 Cloudflare Worker API
+        const response = await fetch('https://love-message-board.guba396.workers.dev/api/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                message
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error('提交留言失败');
+        }
+        
+        // 清空表单
+        nameInput.value = '';
+        messageInput.value = '';
+        
+        // 重新加载留言
+        await loadMessages();
+        
+        alert('留言成功！');
+    } catch (error) {
+        console.error('提交留言失败:', error);
+        alert('提交留言失败，请稍后再试');
+    } finally {
+        // 恢复提交按钮
+        submitButton.disabled = false;
+        submitButton.innerHTML = '发送祝福';
+    }
 }
 
 // 设置随机背景
