@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>饭团 & Shannon 的爱情空间</title>
+    <title>饭团 & Shannon</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
@@ -30,13 +30,13 @@
 
     <section id="home" class="hero-section">
         <div class="container text-center">
-            <h1 data-aos="fade-up">饭团 & Shannon 的爱情故事</h1>
-            <div class="days-counter" data-aos="zoom-in" data-aos-delay="200">
+            <h1 data-aos="fade-up">饭团 & Shannon在一起的</h1>
+            <div class="days-counter text-center">
                 <span id="days-together">0</span>
-                <p class="days-label">天</p>
+                <div class="days-label" id="days-label">在一起的天数</div>
             </div>
             <div class="hero-image" data-aos="zoom-in" data-aos-delay="400">
-                <img src="images/couple.jpg" alt="饭团和Shannon">
+                <img src="images/couple.jpeg" alt="饭团和Shannon">
             </div>
         </div>
     </section>
@@ -44,15 +44,20 @@
     <section id="gallery" class="gallery-section">
         <div class="container">
             <h2 class="text-center mb-5" data-aos="fade-up">甜蜜相册</h2>
-            <div class="gallery-filter text-center mb-4" data-aos="fade-up">
-                <button class="btn btn-outline-primary active" data-filter="all">全部</button>
-                <button class="btn btn-outline-primary" data-filter="dates">约会</button>
-                <button class="btn btn-outline-primary" data-filter="travel">旅行</button>
-                <button class="btn btn-outline-primary" data-filter="daily">日常</button>
-                <button class="btn btn-outline-primary" data-filter="special">特别时刻</button>
-            </div>
             <div class="row gallery-container">
                 <!-- 相册内容将通过JavaScript动态生成 -->
+            </div>
+            <div class="gallery-pagination text-center mt-4" data-aos="fade-up">
+                <button id="prev-page" class="btn btn-outline-primary"><i class="fas fa-chevron-left"></i> 上一页</button>
+                <span class="mx-3">第 <span id="current-page">1</span> / <span id="total-pages">10</span> 页</span>
+                <button id="next-page" class="btn btn-outline-primary">下一页 <i class="fas fa-chevron-right"></i></button>
+                
+                <form id="goto-page" class="d-inline-block ms-3">
+                    <div class="input-group" style="width: 150px;">
+                        <input type="number" id="page-number" class="form-control" min="1" placeholder="页码">
+                        <button class="btn btn-primary" type="submit">跳转</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

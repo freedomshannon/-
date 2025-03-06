@@ -39,7 +39,7 @@ section {
     color: #1d1d1f;
 }
 
-/* 放大在一起的天数 */
+/* 放大在一起的天数/倒计时 */
 .days-counter {
     margin: 50px auto;
     max-width: 300px;
@@ -72,7 +72,7 @@ section {
     box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
 }
 
-/* 相册样式 - 苹果风格 */
+/* 相册样式 - 简化版 */
 .gallery-section {
     background-color: #fff;
 }
@@ -113,10 +113,22 @@ section {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
+.gallery-item-inner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
 .gallery-item img {
     width: 100%;
     height: 250px;
     object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
 }
 
 .gallery-caption {

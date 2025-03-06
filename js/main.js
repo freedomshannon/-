@@ -10,10 +10,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('current-year').textContent = new Date().getFullYear();
     
     // 计算在一起的天数
-    const startDate = new Date('2023-01-01'); // 替换为你们在一起的日期
+    const startDate = new Date('2024-04-12'); // 修改为你们在一起的日期
     const today = new Date();
     const daysTogether = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-    document.getElementById('days-together').textContent = daysTogether;
+    
+    // 更新显示文本
+    if (daysTogether >= 0) {
+        document.getElementById('days-together').textContent = daysTogether;
+        document.getElementById('days-label').textContent = '天';
+    } else {
+        document.getElementById('days-together').textContent = Math.abs(daysTogether);
+        document.getElementById('days-label').textContent = '距离在一起还有天数';
+    }
     
     // 加载相册数据
     loadGalleryData();
@@ -30,168 +38,131 @@ document.addEventListener('DOMContentLoaded', function() {
         submitMessage();
     });
     
-    // 设置相册筛选功能
+    // 设置相册筛选和分页功能
     setupGalleryFilter();
 });
 
-// 相册数据
-const galleryData = [
-    {
-        image: 'images/gallery/date1.jpg',
-        title: '第一次约会',
-        description: '在咖啡厅度过的美好时光',
-        category: 'dates'
-    },
-    {
-        image: 'images/gallery/travel1.jpg',
-        title: '海边旅行',
-        description: '阳光、沙滩、海浪',
-        category: 'travel'
-    },
-    {
-        image: 'images/gallery/daily1.jpg',
-        title: '一起做饭',
-        description: '第一次一起下厨',
-        category: 'daily'
-    },
-    {
-        image: 'images/gallery/special1.jpg',
-        title: '生日惊喜',
-        description: '为你准备的生日派对',
-        category: 'special'
-    },
-    {
-        image: 'images/gallery/date2.jpg',
-        title: '电影之夜',
-        description: '一起看了最喜欢的电影',
-        category: 'dates'
-    },
-    {
-        image: 'images/gallery/travel2.jpg',
-        title: '山间徒步',
-        description: '登高望远，看世界',
-        category: 'travel'
-    },
-    {
-        image: 'images/gallery/daily2.jpg',
-        title: '周末早晨',
-        description: '慵懒的周末早晨',
-        category: 'daily'
-    },
-    {
-        image: 'images/gallery/special2.jpg',
-        title: '情人节礼物',
-        description: '收到的特别礼物',
-        category: 'special'
-    },
-    {
-        image: 'images/gallery/date3.jpg',
-        title: '公园野餐',
-        description: '阳光明媚的野餐日',
-        category: 'dates'
-    },
-    {
-        image: 'images/gallery/travel3.jpg',
-        title: '城市探索',
-        description: '探索新城市的角落',
-        category: 'travel'
-    },
-    {
-        image: 'images/gallery/daily3.jpg',
-        title: '一起看书',
-        description: '安静的阅读时光',
-        category: 'daily'
-    },
-    {
-        image: 'images/gallery/special3.jpg',
-        title: '纪念日庆祝',
-        description: '特别的纪念日晚餐',
-        category: 'special'
+// 自动生成大量照片数据
+function generatePhotoData(count) {
+    const data = [];
+    for (let i = 1; i <= count; i++) {
+        data.push({
+            image: `images/gallery/photo${i}.jpeg`
+        });
     }
-];
+    return data;
+}
+
+// 生成236张照片的数据
+const galleryData = generatePhotoData(236);
 
 // 纪念日数据
 const anniversaryData = [
     {
-        date: '2023-01-01',
-        title: '相识纪念日',
-        description: '我们第一次相遇'
-    },
-    {
-        date: '2023-03-08',
+        date: '2024-04-12',
         title: '恋爱纪念日',
-        description: '我们正式确定关系'
+        description: '我们在一起啦'
     },
     {
-        date: '1995-05-15',
+        date: '2003-07-14',
         title: '饭团生日',
         description: '饭团的生日'
     },
     {
-        date: '1996-08-20',
+        date: '2001-11-15',
         title: 'Shannon生日',
         description: 'Shannon的生日'
     },
     {
-        date: '2023-05-20',
-        title: '第一次旅行',
-        description: '我们的第一次旅行'
+        date: '2025-06-10',
+        title: '尼泊尔徒步！',
+        description: '减肥健身'
     },
-    {
-        date: '2023-12-25',
-        title: '第一个圣诞节',
-        description: '一起度过的第一个圣诞节'
-    }
 ];
 
-// 加载相册数据
+// 全局变量
+let currentPage = 1;
+const itemsPerPage = 12; // 每页显示24张照片
+
+// 加载相册数据 - 优化版本
 function loadGalleryData() {
     const galleryContainer = document.querySelector('.gallery-container');
     galleryContainer.innerHTML = '';
     
-    galleryData.forEach((item, index) => {
+    // 计算分页
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, galleryData.length);
+    
+    // 更新当前页码显示
+    document.getElementById('current-page').textContent = currentPage;
+    
+    // 创建文档片段，提高性能
+    const fragment = document.createDocumentFragment();
+    
+    // 显示当前页的照片
+    for (let i = startIndex; i < endIndex; i++) {
+        const item = galleryData[i];
         const galleryItem = document.createElement('div');
-        galleryItem.className = `col-md-4 col-sm-6 gallery-item ${item.category}`;
-        galleryItem.setAttribute('data-aos', 'fade-up');
-        galleryItem.setAttribute('data-aos-delay', (index % 3) * 100);
+        galleryItem.className = 'col-md-3 col-sm-6 gallery-item'; // 改为每行4张
         
+        // 简化的照片显示，只显示照片
         galleryItem.innerHTML = `
             <div class="gallery-item-inner">
-                <img src="${item.image}" alt="${item.title}" class="img-fluid">
-                <div class="gallery-caption">
-                    <h5>${item.title}</h5>
-                    <p>${item.description}</p>
-                </div>
+                <img src="${item.image}" alt="照片" class="img-fluid" loading="lazy">
             </div>
         `;
         
-        galleryContainer.appendChild(galleryItem);
-    });
+        fragment.appendChild(galleryItem);
+    }
+    
+    // 一次性添加所有元素，减少DOM操作
+    galleryContainer.appendChild(fragment);
+    
+    // 更新分页按钮状态
+    document.getElementById('prev-page').disabled = currentPage === 1;
+    document.getElementById('next-page').disabled = endIndex >= galleryData.length;
 }
 
-// 设置相册筛选功能
+// 设置分页功能
 function setupGalleryFilter() {
-    const filterButtons = document.querySelectorAll('.gallery-filter button');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const filterValue = this.getAttribute('data-filter');
-            
-            // 更新按钮状态
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // 筛选相册项目
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach(item => {
-                if (filterValue === 'all' || item.classList.contains(filterValue)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
+    // 添加分页按钮事件监听
+    document.getElementById('prev-page').addEventListener('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            loadGalleryData();
+            window.scrollTo({top: document.getElementById('gallery').offsetTop, behavior: 'smooth'});
+        }
     });
+    
+    document.getElementById('next-page').addEventListener('click', function() {
+        const totalPages = Math.ceil(galleryData.length / itemsPerPage);
+        
+        if (currentPage < totalPages) {
+            currentPage++;
+            loadGalleryData();
+            window.scrollTo({top: document.getElementById('gallery').offsetTop, behavior: 'smooth'});
+        }
+    });
+    
+    // 添加页面跳转功能
+    document.getElementById('goto-page').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pageInput = document.getElementById('page-number');
+        const pageNumber = parseInt(pageInput.value);
+        const totalPages = Math.ceil(galleryData.length / itemsPerPage);
+        
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+            currentPage = pageNumber;
+            loadGalleryData();
+            window.scrollTo({top: document.getElementById('gallery').offsetTop, behavior: 'smooth'});
+        } else {
+            alert(`请输入1到${totalPages}之间的页码`);
+        }
+    });
+    
+    // 更新总页数显示
+    const totalPages = Math.ceil(galleryData.length / itemsPerPage);
+    document.getElementById('total-pages').textContent = totalPages;
 }
 
 // 加载纪念日数据
