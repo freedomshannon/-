@@ -1,0 +1,298 @@
+/* 基础样式 - 苹果风格 */
+body {
+    font-family: 'SF Pro Display', 'SF Pro Text', 'Microsoft YaHei', sans-serif;
+    color: #1d1d1f;
+    line-height: 1.6;
+    background-color: #fbfbfd;
+}
+
+section {
+    padding: 100px 0;
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #1d1d1f;
+}
+
+/* 首页英雄区域 - 苹果风格 */
+.hero-section {
+    background-color: #fbfbfd;
+    padding: 150px 0 100px;
+}
+
+.hero-section h1 {
+    font-weight: 700;
+    font-size: 48px;
+    margin-bottom: 30px;
+    color: #1d1d1f;
+}
+
+/* 放大在一起的天数 */
+.days-counter {
+    margin: 50px auto;
+    max-width: 300px;
+}
+
+#days-together {
+    font-weight: 700;
+    color: #06c;
+    font-size: 96px;
+    display: block;
+    line-height: 1;
+}
+
+.days-label {
+    font-size: 24px;
+    color: #86868b;
+    margin-top: 10px;
+}
+
+.hero-image img {
+    max-width: 300px;
+    border-radius: 50%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 5px solid #fff;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.hero-image img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* 相册样式 - 苹果风格 */
+.gallery-section {
+    background-color: #fff;
+}
+
+.gallery-section h2 {
+    font-weight: 700;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.gallery-filter .btn {
+    margin: 0 5px;
+    border-radius: 20px;
+    font-weight: 500;
+    padding: 8px 20px;
+    border: none;
+    background-color: #f5f5f7;
+    color: #1d1d1f;
+    transition: all 0.3s ease;
+}
+
+.gallery-filter .btn.active,
+.gallery-filter .btn:hover {
+    background-color: #06c;
+    color: #fff;
+}
+
+.gallery-item {
+    margin-bottom: 30px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.gallery-caption {
+    padding: 20px;
+    background-color: white;
+}
+
+.gallery-caption h5 {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* 纪念日样式 - 苹果风格 */
+.anniversary-section {
+    background-color: #f5f5f7;
+}
+
+.anniversary-section h2 {
+    font-weight: 700;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.anniversary-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.anniversary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.anniversary-card h3 {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1d1d1f;
+}
+
+.anniversary-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f5f5f7;
+}
+
+.anniversary-item h5 {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.anniversary-date {
+    font-weight: 500;
+    color: #06c;
+    margin: 8px 0;
+}
+
+.countdown {
+    font-weight: 600;
+    color: #06c;
+    background-color: rgba(0, 102, 204, 0.1);
+    padding: 5px 12px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+/* 留言板样式 - 苹果风格 */
+.message-section {
+    background-color: #fff;
+}
+
+.message-section h2 {
+    font-weight: 700;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+#message-form {
+    background-color: #f5f5f7;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #1d1d1f;
+}
+
+.form-control {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+}
+
+.btn-primary {
+    background-color: #06c;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0055b3;
+    transform: translateY(-2px);
+}
+
+.message-item {
+    background-color: #f5f5f7;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    transition: transform 0.3s ease;
+}
+
+.message-item:hover {
+    transform: translateY(-5px);
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.message-name {
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.message-date {
+    color: #86868b;
+    font-size: 0.9em;
+}
+
+.message-content p {
+    color: #1d1d1f;
+}
+
+/* 页脚样式 - 苹果风格 */
+footer {
+    background-color: #f5f5f7;
+    padding: 30px 0;
+    color: #86868b;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 36px;
+    }
+    
+    #days-together {
+        font-size: 72px;
+    }
+    
+    .days-label {
+        font-size: 20px;
+    }
+    
+    .gallery-section h2,
+    .anniversary-section h2,
+    .message-section h2 {
+        font-size: 32px;
+    }
+} 
