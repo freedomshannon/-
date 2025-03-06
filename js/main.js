@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('current-year').textContent = new Date().getFullYear();
     
     // 计算在一起的天数
-    const startDate = new Date('2024-04-12'); // 修改为你们在一起的日期
+    const startDate = new Date('2024-04-10'); // 修改为你们在一起的日期
     const today = new Date();
     const daysTogether = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
     
